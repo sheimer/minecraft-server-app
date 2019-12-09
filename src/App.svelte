@@ -5,7 +5,7 @@
   onMount(() => {
     list.get()
     status.get()
-    query.get()
+    // query.get()
   })
 </script>
 
@@ -23,9 +23,10 @@
       {#each $status as line}
         <p>{line}</p>
       {:else}
-        <p>Status loading...</p>
+        <p>Status lädt...</p>
       {/each}
     </div>
+    <!--
     <div>
       {#each $query as line}
         <p>{line}</p>
@@ -33,6 +34,7 @@
         <p>Query loading...</p>
       {/each}
     </div>
+    -->
   </div>
 </main>
 
