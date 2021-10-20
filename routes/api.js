@@ -4,7 +4,7 @@ const router = express.Router()
 
 
 const execMscsCmd = (cmd, options) => {
-  cmd = cmd.replace(/[^a-z]/g, '')
+  cmd = cmd.replace(/[^a-zA-Z0-9- ]/g, '')
   return new Promise((resolve, reject) => {
     exec(`mscs ${cmd}`, (err, stdout, stderr) => {
       if (err) {
@@ -12,7 +12,10 @@ const execMscsCmd = (cmd, options) => {
         reject(err)
         return
       }
-      const msgs = stdout.trim().replace(/\n\n/g, '\n').split('\n')
+      let msgs = stdout.trim().replace(/\n\n/g, '\n').split('\n')
+      if (cmd.indexOf('-json') >= 0) {
+        msgs =  JSON.parse(msgs)
+      }
       console.log(stdout)
       console.log(msgs)
       resolve(msgs)

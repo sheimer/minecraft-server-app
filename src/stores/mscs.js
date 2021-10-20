@@ -7,14 +7,18 @@ const createApiCall = cmd => {
 
   return {
     subscribe,
-    get: async () => {
-      const msgs = await sendMscsRequest(cmd)
+    get: async (suff) => {
+      const msgs = await sendMscsRequest((cmd+' '+(suff || '').replace(/[^a-zA-Z0-9-]/, '')).trim())
       set(msgs)
     }
   }
 }
 
 export const list = createApiCall('list')
-export const status = createApiCall('status')
-export const query = createApiCall('query')
+export const status = createApiCall('status-json')
+export const query = createApiCall('query-json')
+export const stop = createApiCall('stop')
+export const start = createApiCall('start')
+export const restart = createApiCall('restart')
+export const update = createApiCall('update')
 
